@@ -1,0 +1,45 @@
+<div class="jumbotron">
+  <h1>Hello there!</h1>
+  <p class="lead">This app will hopfully outline some of the stuff we can do with the times API and how we can use it to make questions to a dynamically generated quiz</p>
+  <p><button ng-click="getData()"class="btn btn-lg btn-success">This button will get the datums <span class="glyphicon glyphicon-ok"></span></button></p>
+</div>
+
+<!-- // We want to generate a question on a button press. -->
+
+
+
+
+
+
+
+<div ng-show="showDefault" class="row marketing">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <button ng-click="showQuestion()" class="btn btn-success pull-right">Create Image question <span class="glyphicon glyphicon-ok"></span></button>
+      <h3>This will become a question?</h3>
+      <ul id='question-list' style="list-style-type:none">
+        <li><input type="radio" name="" value=""> answer </li>
+        <li><input type="radio" name="" value=""> answer </li>
+        <li><input type="radio" name="" value=""> answer </li>
+        <li><input type="radio" name="" value=""> answer </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+
+<div ng-model="imageQuestions" ng-hide="showDefault" class="row marketing">
+
+  <ul class="list-group" ng-repeat="question in imageQuestions">
+    <li class="list-group-item">
+      <img ng-src="{{question.image}}"/>
+      <h3>{{question.question}}</h3>
+      <ul id='question-list' style="list-style-type:none">
+        <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> {{answer.value}} </li>
+      </ul>
+    </li>
+  </ul>
+
+
+</div>
