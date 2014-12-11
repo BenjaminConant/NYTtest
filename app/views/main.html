@@ -1,13 +1,12 @@
 <div class="jumbotron">
-  <h1>Hello there!</h1>
-  <h1>Welcome to today's Know York Times Quiz</h1>
+  <h1>Welcome The Know York Times Quiz</h1>
   <p class="lead">This app will hopfully outline some of the stuff we can do with the times API and how we can use it to make questions to a dynamically generated quiz</p>
-  <p><button ng-click="getData()"class="btn btn-lg btn-success">This button will get the datums <span class="glyphicon glyphicon-ok"></span></button></p>
 </div>
 
-<!-- // Questions generated on load -->
-<div ng-model="imageQuestions"  class="row marketing">
-  <ul class="list-group" ng-repeat="question in imageQuestions">
+
+<h1> The Easy Questions </h1>
+<div ng-model="quizObject"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in quizObject.questions | filter:easyQuestionFilter">
     <li class="list-group-item">
       <img ng-src="{{question.image}}" style="width:100%"/>
       <h3>{{question.question}}</h3>
@@ -18,25 +17,34 @@
   </ul>
 </div>
 
-<!-- <div ng-model="sentenceFinisherQuestions"  class="row marketing">
-  <ul class="list-group" ng-repeat="question in sentenceFinisherQuestions">
+
+<h1> The Medium Questions </h1>
+<div ng-model="quizObject"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in quizObject.questions | filter:mediumQuestionFilter">
     <li class="list-group-item">
-      <h3>Complete the sentence</h3>
+      <img ng-src="{{question.image}}" style="width:100%"/>
       <h3>{{question.question}}</h3>
       <ul id='question-list' style="list-style-type:none">
         <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> {{answer.value}} </li>
       </ul>
     </li>
   </ul>
-</div> -->
+</div>
 
 
-<div ng-model="keywordTitleQuestions"  class="row marketing">
-  <ul class="list-group" ng-repeat="question in keywordTitleQuestions">
+<h1> The Hard Questions </h1>
+<div ng-model="quizObject"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in quizObject.questions | filter:hardQuestionFilter">
     <li class="list-group-item">
+
+
+
+      <h3>{{question.snippet}}</h3>
+      <h3></h3>
+
       <h3>{{question.question}}</h3>
       <ul id='question-list' style="list-style-type:none">
-        <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> {{answer.value}} </li>
+        <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> <img ng-src="{{answer.value}}" style="width:100%"/> </li>
       </ul>
     </li>
   </ul>
