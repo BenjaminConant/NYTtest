@@ -79,10 +79,11 @@ angular.module('quizApp')
   $scope.apiCallNYT = function(resultsPageNumber) {
     $http.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + $scope.NYTapiKey)
     .success(function(results, status, headers, jqXHR) {
+      console.log(results);
 
       var resultsObject = results;
       var docsArray = resultsObject['response']['docs'];
-      console.log(docsArray);
+      //console.log(docsArray);
 
       // create the articleTitlesArray - used for the answers to easy questions.
       docsArray.forEach(function(document) {
@@ -222,8 +223,10 @@ angular.module('quizApp')
 
 
 
-      // outside of all for loops
-      $scope.filterQuestions($scope.imageQuestions);
+       // outside of all for loops
+      //  $scope.filterQuestions($scope.imageQuestions);
+
+      $scope.quizObject.questions = $scope.imageQuestions;
 
 
 
@@ -270,52 +273,65 @@ angular.module('quizApp')
 
 
 
+  $scope.uniqueImageLinks = [];
+  // takes a question and returns true if one or all of its images are on the page
 
+  $scope.isQuestionImageOnPage = function(question) {
+
+  }
 
 
 
   $scope.filterQuestions = function(arrayOfQuestions) {
-    console.log(arrayOfQuestions);
-    var shuffledQuestions = $scope.shuffle(arrayOfQuestions);
-    var filteredQuestions = [];
-
-    shuffledQuestions.forEach(function(question) {
-      if (question.questionType === "imageToTitle" || question.questionType === "snippetToImage") {
-        // question is a image to title question
-        if (question.questionType === "imageToTitle") {
-          if (filteredQuestions.indexOf(question.image) === -1)  {
-            filteredQuestions.push(question);
-          }
-        }
-        console.log("hello from before");
-        if (question.questionType === "snippetToImage") {
-          console.log("hello");
-          var answerImageLinks = [];
-          for ( var prop in question) {
-            if (prop === 'value') {
-                answerImageLinks.push(question.prop)
-            }
-          }
-
-          var push = true;
-
-          answerImageLinks.forEach(function(answerImage) {
-            if (filteredQuestions.indexOf(answerImage) === -1)  {
-
-            } else {
-              push = false;
-            }
-          });
-
-          if (push){
-            filteredQuestions.push(question);
-          }
-        }
-      }
-
+    arrayOfQuestions.forEach(function(question) {
+      $scope.isQuestionImageOnPage(question);
     });
-    $scope.quizObject.questions = filteredQuestions;
-    console.log(filteredQuestions);
+
+
+
+
+
+
+    // var shuffledQuestions = $scope.shuffle(arrayOfQuestions);
+    // var filteredQuestions = [];
+    //
+    //
+    //
+    // shuffledQuestions.forEach(function(question) {
+    //   if (question.questionType === "imageToTitle" || question.questionType === "snippetToImage") {
+    //
+    //     // question is a image to title question
+    //     if (question.questionType === "imageToTitle") {
+    //       if ($scope.uniqueImageLinks.indexOf(question.image) === -1)  {
+    //         $scope.uniqueImageLinks.push(question.image);
+    //         filteredQuestions.push(question);
+    //       }
+    //     }
+    //     // question is a snippet to image question --- check if any of the answers
+    //     if (question.questionType === "snippetToImage") {
+    //
+    //
+    //       var answerImages = []
+    //
+    //       question.answerChoices.forEach(function(imageAnswerObject) {
+    //             answerImages.push(imageAnswerObject.value);
+    //       });
+    //       console.log(answerImages);
+    //       var push = true;
+    //       answerImages.forEach(function(answerImage) {
+    //         if ($scope.uniqueImageLinks.indexOf(answerImage) === -1)  {
+    //         } else {
+    //           push = false;
+    //         }
+    //       });
+    //       if (push){
+    //         filteredQuestions.push(question);
+    //         $scope.uniqueImageLinks.push(answerImages);
+    //       }
+    //     }
+    //   }
+    // });
+    // $scope.quizObject.questions = filteredQuestions;
   }
 
 
