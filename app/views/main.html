@@ -1,33 +1,57 @@
 <div class="jumbotron">
-  <h1>Welcome The Know York Times Quiz</h1>
+  <h1>Welcome to ... The Know York Times Quiz</h1>
   <p class="lead">This app will hopfully outline some of the stuff we can do with the times API and how we can use it to make questions to a dynamically generated quiz</p>
 </div>
 
 
-<h1> Image to Title </h1>
-<div ng-model="quizObject"  class="row marketing">
-  <ul class="list-group" ng-repeat="question in quizObject.questions | filter:easyQuestionFilter">
-    <li class="list-group-item">
+<h1> This Image Came From </h1>
+
+<div ng-model="flexQuestionsArray"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in flexQuestionsArray">
+
+    <li ng-hide="" class="list-group-item">
+      <h3 style="font-size:40px" class="text-center">This Image</h3>
       <img ng-src="{{question.image}}" style="width:100%"/>
-      <h3>{{question.question}}</h3>
+      <h3 style="font-size:40px" class="text-center">Came From ...</h3>
       <ul id='question-list' style="list-style-type:none">
-        <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> {{answer.value}} </li>
+        <li><h3>{{question.oneRandomFakeAnswer("fakeTitles")}}</h3></li>
       </ul>
+      <button style="width:50%; height: 150px;" class="btn btn-danger"> No </button>
+      <button style="width:50%; height: 150px;" class="btn btn-success pull-right"> Yes </button>
     </li>
+
   </ul>
 </div>
 
 
-<h1> Snippet To Image </h1>
-<div ng-model="quizObject"  class="row marketing">
-  <ul class="list-group" ng-repeat="question in quizObject.questions | filter:hardQuestionFilter">
-    <li class="list-group-item">
+<h1> This sentence was in ... </h1>
+<div ng-model="flexQuestionsArray"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in flexQuestionsArray">
+    <li ng-hide="" class="list-group-item">
+      <h3 style="font-size:40px" class="text-center">This sentence</h3>
       <h3>{{question.snippet}}</h3>
-      <h3></h3>
-      <h3>{{question.question}}</h3>
+      <h3 style="font-size:40px" class="text-center">Was in ...</h3>
       <ul id='question-list' style="list-style-type:none">
-        <li ng-repeat="answer in question.answerChoices"><input type="radio" name="" value=""> <img ng-src="{{answer.value}}" style="width:80%"/> </li>
+        <li><h3>{{question.oneRandomFakeAnswer("fakeTitles")}}</h3></li>
       </ul>
+      <button style="width:50%; height: 150px;" class="btn btn-danger"> No </button>
+      <button style="width:50%; height: 150px;" class="btn btn-success pull-right"> Yes </button>
     </li>
   </ul>
 </div>
+
+
+<h1> This Article had this image </h1>
+<div ng-model="flexQuestionsArray"  class="row marketing">
+  <ul class="list-group" ng-repeat="question in flexQuestionsArray">
+    <li ng-hide="" class="list-group-item">
+      <h3 style="font-size:40px" class="text-center">This sentence acompanied</h3>
+      <h3>{{question.title}}</h3>
+      <h3 style="font-size:40px" class="text-center"> this image .. </h3>
+        <img ng-src="{{question.oneRandomFakeAnswer('fakeImages')}}" style="width:100%"/>
+      <button style="width:50%; height: 150px;" class="btn btn-danger"> No </button>
+      <button style="width:50%; height: 150px;" class="btn btn-success pull-right"> Yes </button>
+    </li>
+  </ul>
+</div>
+

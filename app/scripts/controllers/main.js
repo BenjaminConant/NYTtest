@@ -48,6 +48,197 @@ angular.module('quizApp')
   //
 
 
+  // $scope.quizObject = {
+  //   date: "",
+  //   questions: [],
+  //   playsInfo: {}
+  // }
+  //
+  // $scope.imageQuestions = [];
+  // $scope.articleTitlesArray = [];
+  // $scope.articleKeyWordsArray = [];
+  // $scope.articleSnippetsArray = [];
+  // $scope.articleImagesArray = [];
+  //
+  // function ImageQuestion(question, image, answerChoices, questionType, showQuestion, difficultyLevel){
+  //   this.question = question;
+  //   this.image = image;
+  //   this.answerChoices = [];
+  //   this.questionType = questionType;
+  //   this.showQuestion = showQuestion;
+  //   this.difficultyLevel = difficultyLevel;
+  // }
+  //
+  // $scope.NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
+
+
+
+
+
+
+
+
+  // $scope.NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
+  //
+  // $scope.apiCallNYT = function(resultsPageNumber) {
+  //   $http.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + $scope.NYTapiKey)
+  //   .success(function(results, status, headers, jqXHR) {
+  //     console.log(results);
+  //
+  //     var resultsObject = results;
+  //     var docsArray = resultsObject['response']['docs'];
+  //     //console.log(docsArray);
+  //
+  //     // create the articleTitlesArray - used for the answers to easy questions.
+  //     docsArray.forEach(function(document) {
+  //       if (document.headline.main && document.headline.main !== "") {
+  //         $scope.articleTitlesArray.push(document.headline.main);
+  //       }
+  //     });
+  //
+  //     // create the articleKeyWordsArray - used for the answers to medium questions
+  //     // this could possibly be improved by removing anything thats inside ( ) from the key words string
+  //     docsArray.forEach(function(document) {
+  //       if (document.keywords.length > 0) {
+  //         var keywordsString = "";
+  //         document.keywords.forEach(function(keywordObject) {
+  //           if (keywordObject.value) {
+  //             keywordsString += keywordObject.value + "," + " ";
+  //           }
+  //         });
+  //         keywordsString = keywordsString.trim();
+  //         keywordsString = keywordsString.substring(0, keywordsString.length-1);
+  //         $scope.articleKeyWordsArray.push(keywordsString);
+  //       }
+  //     });
+  //
+  //     // create the articleSnippetsArray used for the questions to hard questions
+  //     docsArray.forEach(function(document) {
+  //       if (document.snippet) {
+  //         $scope.articleSnippetsArray.push(document.snippet);
+  //       }
+  //     });
+  //
+  //     //create the articleImages array used for the answer to hard questions
+  //     docsArray.forEach(function(document) {
+  //       if (document.multimedia.length > 0) {
+  //         $scope.articleImagesArray.push("http://www.nytimes.com/" + document.multimedia[0].url);
+  //       }
+  //     });
+  //
+  //
+  //
+  //     // create the Easy and Medium Questions
+  //     docsArray.forEach(function(doc, index) {
+  //
+  //       // easy
+  //       if (doc.multimedia.length > 0 && doc.headline.main) {
+  //
+  //         var newEasyImageQuestion = new ImageQuestion();
+  //         newEasyImageQuestion.question = "The image above most likely goes with which article?";
+  //         newEasyImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
+  //         newEasyImageQuestion.answerChoices.push({'value': doc.headline.main, 'isCorrect': true});
+  //         newEasyImageQuestion.questionType = "imageToTitle";
+  //         newEasyImageQuestion.showQuestion = true;
+  //         newEasyImageQuestion.difficultyLevel = 0;
+  //
+  //         for (var i = 0; i < 4; i++) {
+  //           var randomIndex = Math.floor((Math.random() * ($scope.articleTitlesArray.length -1)) + 0);
+  //           var articleTitlesArray = [];
+  //           newEasyImageQuestion.answerChoices.forEach(function(answerChoice) {
+  //             articleTitlesArray.push(answerChoice.value)
+  //           });
+  //           if (articleTitlesArray.indexOf($scope.articleTitlesArray[randomIndex]) === - 1) {
+  //             newEasyImageQuestion.answerChoices.push({'value': $scope.articleTitlesArray[randomIndex], 'isCorrect': false});
+  //           }
+  //         }
+  //         $scope.imageQuestions.push(newEasyImageQuestion);
+  //       }
+  //
+  //
+  //       // medium
+  //       if (doc.multimedia.length > 0 && doc.keywords.length > 0) {
+  //         var newMediumImageQuestion = new ImageQuestion();
+  //         newMediumImageQuestion.question = "The image above relates most to which set of keywords?";
+  //         newMediumImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
+  //         newMediumImageQuestion.questionType = "image";
+  //         newMediumImageQuestion.showQuestion = true;
+  //         newMediumImageQuestion.difficultyLevel = 1;
+  //         var keywordsString = "";
+  //         doc.keywords.forEach(function(keywordObject) {
+  //           if (keywordObject.value) {
+  //             keywordsString += keywordObject.value + "," + " ";
+  //           }
+  //         });
+  //         keywordsString = keywordsString.trim();
+  //         keywordsString = keywordsString.substring(0, keywordsString.length-1);
+  //         newMediumImageQuestion.answerChoices.push({'value': keywordsString, 'isCorrect': true});
+  //
+  //         for (var i = 0; i < 4; i++) {
+  //           var randomIndex = Math.floor((Math.random() * ($scope.articleKeyWordsArray.length -1)) + 0);
+  //
+  //
+  //           var keywordsArray = [];
+  //           newMediumImageQuestion.answerChoices.forEach(function(answerChoice) {
+  //             keywordsArray.push(answerChoice.value);
+  //           });
+  //           if (keywordsArray.indexOf($scope.articleKeyWordsArray[randomIndex]) === -1) {
+  //             newMediumImageQuestion.answerChoices.push({'value': $scope.articleKeyWordsArray[randomIndex], 'isCorrect': false});
+  //           }
+  //         }
+  //         $scope.imageQuestions.push(newMediumImageQuestion);
+  //
+  //       }
+  //
+  //       //
+  //
+  //       // hard
+  //       if (doc.snippet && doc.multimedia.length > 0) {
+  //         var newHardImageQuestion = new ImageQuestion();
+  //         newHardImageQuestion.question = "Which image does the quotation above belong to?";
+  //         newHardImageQuestion['snippet'] = doc.snippet;
+  //         newHardImageQuestion.questionType = "snippetToImage";
+  //         newHardImageQuestion.showQuestion = true;
+  //         newHardImageQuestion.difficultyLevel = 2;
+  //         $scope.imageQuestions.push(newHardImageQuestion);
+  //         newHardImageQuestion.answerChoices.push({'value': "http://www.nytimes.com/" + doc.multimedia[0].url, 'isCorrect': true});
+  //
+  //         for (var i = 0; i < 4; i++) {
+  //           var randomIndex = Math.floor((Math.random() * ($scope.articleImagesArray.length -1)) + 0);
+  //           var imageArray = [];
+  //           newHardImageQuestion.answerChoices.forEach(function(answerChoice) {
+  //             imageArray.push(answerChoice.value);
+  //           });
+  //           if ( imageArray.indexOf($scope.articleImagesArray[randomIndex]) === -1){
+  //             newHardImageQuestion.answerChoices.push({'value': $scope.articleImagesArray[randomIndex], 'isCorrect': false});
+  //           }
+  //         }
+  //       }
+  //
+  //
+  //
+  //
+  //     });
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //      // outside of all for loops
+  //     //  $scope.filterQuestions($scope.imageQuestions);
+  //
+  //     $scope.quizObject.questions = $scope.imageQuestions;
+  //
+  //
+  //
+  //
+  //
+  //   });
+  // };
+
 
   $scope.quizObject = {
     date: "",
@@ -55,185 +246,287 @@ angular.module('quizApp')
     playsInfo: {}
   }
 
-  $scope.imageQuestions = [];
-  $scope.articleTitlesArray = [];
-  $scope.articleKeyWordsArray = [];
-  $scope.articleSnippetsArray = [];
-  $scope.articleImagesArray = [];
+  $scope.flexQuestionsArray = [];
 
-  function ImageQuestion(question, image, answerChoices, questionType, showQuestion, difficultyLevel){
-    this.question = question;
+  $scope.fakeImagesArray = [];
+  $scope.fakeTitlesArray = [];
+  $scope.fakeSnippetsArray = [];
+
+  function FlexQuestion(image, title, snippet){
     this.image = image;
-    this.answerChoices = [];
-    this.questionType = questionType;
-    this.showQuestion = showQuestion;
-    this.difficultyLevel = difficultyLevel;
+    this.fakeImages = [];
+    this.title = title;
+    this.fakeTitles = [];
+    this.snippet = snippet;
+    this.fakeSnippets = [];
+    this.name = "";
+    this.fakeNames = [];
+    this.oneRandomFakeAnswer = function(fakeAnswerArrayName){
+      if (fakeAnswerArrayName === "fakeImages") {
+        var randomIndex = Math.floor((Math.random() * (this.fakeImages.length -1)) + 0);
+        return this.fakeImages[randomIndex];
+
+      } else if (fakeAnswerArrayName === "fakeTitles" ){
+        var randomIndex = Math.floor((Math.random() * (this.fakeTitles.length -1)) + 0);
+        return this.fakeTitles[randomIndex];
+
+      } else if (fakeAnswerArrayName === "fakeSnippets"){
+        var randomIndex = Math.floor((Math.random() * (this.fakeSnippets.length -1)) + 0);
+        return this.fakeSnippets[randomIndex];
+      } else if (fakeAnswerArrayName === "fakeNames" ) {
+        var randomIndex = Math.floor((Math.random() * (this.fakeNames.length -1)) + 0);
+        return this.fakeNames[randomIndex];
+      }
+    };
   }
-
-
-
-
 
   $scope.NYTapiKey = "bdcebec4874a5076dbaaa7f2a5f0db3b:3:70140904";
 
   $scope.apiCallNYT = function(resultsPageNumber) {
+    resultsPageNumber = 0;
     $http.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=source:("The New York Times") AND type_of_material:("News") AND news_desk:("Sports" "Science")' + '&begin_date=20141211&end_date=20141211' + '&page=' + resultsPageNumber + '&api-key=' + $scope.NYTapiKey)
     .success(function(results, status, headers, jqXHR) {
-      console.log(results);
 
-      var resultsObject = results;
-      var docsArray = resultsObject['response']['docs'];
-      //console.log(docsArray);
+      var docsArray = results['response']['docs'];
+      console.log("-----------------------------------docsArray");
+      console.log(docsArray);
 
-      // create the articleTitlesArray - used for the answers to easy questions.
-      docsArray.forEach(function(document) {
-        if (document.headline.main && document.headline.main !== "") {
-          $scope.articleTitlesArray.push(document.headline.main);
-        }
+      // loop over articles and create flexObjects from them, also create the fake answer arrays
+      docsArray.forEach(function(articleObject) {
+        var articleImage = "http://www.nytimes.com/" + articleObject.multimedia[0].url;
+        var articleTitle = articleObject.headline.main;
+        var articleSnippet = articleObject.snippet;
+        if (articleImage && articleTitle && articleSnippet) {
+          var newFlexQuestion = new FlexQuestion(articleImage, articleTitle, articleSnippet);
+          $scope.flexQuestionsArray.push(newFlexQuestion);
+          $scope.fakeImagesArray.push(articleImage);
+          $scope.fakeTitlesArray.push(articleTitle);
+          $scope.fakeSnippetsArray.push(articleSnippet);
+      }
       });
 
-      // create the articleKeyWordsArray - used for the answers to medium questions
-      // this could possibly be improved by removing anything thats inside ( ) from the key words string
-      docsArray.forEach(function(document) {
-        if (document.keywords.length > 0) {
-          var keywordsString = "";
-          document.keywords.forEach(function(keywordObject) {
-            if (keywordObject.value) {
-              keywordsString += keywordObject.value + "," + " ";
+      // loop over the just created array of flexQuestions as well as the fake answer arrays and assign the flexQuestions fakeAnswers properties
+      $scope.flexQuestionsArray.forEach(function(flexQuestion) {
+
+          // fake images
+          $scope.fakeImagesArray.forEach(function(fakeImage) {
+            if (flexQuestion.image !== fakeImage) {
+                flexQuestion.fakeImages.push(fakeImage);
             }
           });
-          keywordsString = keywordsString.trim();
-          keywordsString = keywordsString.substring(0, keywordsString.length-1);
-          $scope.articleKeyWordsArray.push(keywordsString);
-        }
-      });
 
-      // create the articleSnippetsArray used for the questions to hard questions
-      docsArray.forEach(function(document) {
-        if (document.snippet) {
-          $scope.articleSnippetsArray.push(document.snippet);
-        }
-      });
-
-      //create the articleImages array used for the answer to hard questions
-      docsArray.forEach(function(document) {
-        if (document.multimedia.length > 0) {
-          $scope.articleImagesArray.push("http://www.nytimes.com/" + document.multimedia[0].url);
-        }
-      });
-
-
-
-      // create the Easy and Medium Questions
-      docsArray.forEach(function(doc, index) {
-
-        // easy
-        if (doc.multimedia.length > 0 && doc.headline.main) {
-
-          var newEasyImageQuestion = new ImageQuestion();
-          newEasyImageQuestion.question = "The image above most likely goes with which article?";
-          newEasyImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
-          newEasyImageQuestion.answerChoices.push({'value': doc.headline.main, 'isCorrect': true});
-          newEasyImageQuestion.questionType = "imageToTitle";
-          newEasyImageQuestion.showQuestion = true;
-          newEasyImageQuestion.difficultyLevel = 0;
-
-          for (var i = 0; i < 4; i++) {
-            var randomIndex = Math.floor((Math.random() * ($scope.articleTitlesArray.length -1)) + 0);
-            var articleTitlesArray = [];
-            newEasyImageQuestion.answerChoices.forEach(function(answerChoice) {
-              articleTitlesArray.push(answerChoice.value)
-            });
-            if (articleTitlesArray.indexOf($scope.articleTitlesArray[randomIndex]) === - 1) {
-              newEasyImageQuestion.answerChoices.push({'value': $scope.articleTitlesArray[randomIndex], 'isCorrect': false});
-            }
-          }
-          $scope.imageQuestions.push(newEasyImageQuestion);
-        }
-
-
-        // medium
-        if (doc.multimedia.length > 0 && doc.keywords.length > 0) {
-          var newMediumImageQuestion = new ImageQuestion();
-          newMediumImageQuestion.question = "The image above relates most to which set of keywords?";
-          newMediumImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
-          newMediumImageQuestion.questionType = "image";
-          newMediumImageQuestion.showQuestion = true;
-          newMediumImageQuestion.difficultyLevel = 1;
-          var keywordsString = "";
-          doc.keywords.forEach(function(keywordObject) {
-            if (keywordObject.value) {
-              keywordsString += keywordObject.value + "," + " ";
+          // fake Titles
+          $scope.fakeTitlesArray.forEach(function(fakeTitle) {
+            if (flexQuestion.title !== fakeTitle) {
+              flexQuestion.fakeTitles.push(fakeTitle);
             }
           });
-          keywordsString = keywordsString.trim();
-          keywordsString = keywordsString.substring(0, keywordsString.length-1);
-          newMediumImageQuestion.answerChoices.push({'value': keywordsString, 'isCorrect': true});
 
-          for (var i = 0; i < 4; i++) {
-            var randomIndex = Math.floor((Math.random() * ($scope.articleKeyWordsArray.length -1)) + 0);
-
-
-            var keywordsArray = [];
-            newMediumImageQuestion.answerChoices.forEach(function(answerChoice) {
-              keywordsArray.push(answerChoice.value);
-            });
-            if (keywordsArray.indexOf($scope.articleKeyWordsArray[randomIndex]) === -1) {
-              newMediumImageQuestion.answerChoices.push({'value': $scope.articleKeyWordsArray[randomIndex], 'isCorrect': false});
+          // fake Spippets
+          $scope.fakeSnippetsArray.forEach(function(fakeSnippet) {
+            if (flexQuestion.snippet !== fakeSnippet) {
+              flexQuestion.fakeSnippets.push(fakeSnippet);
             }
-          }
-          $scope.imageQuestions.push(newMediumImageQuestion);
-
-        }
-
-        //
-
-        // hard
-        if (doc.snippet && doc.multimedia.length > 0) {
-          var newHardImageQuestion = new ImageQuestion();
-          newHardImageQuestion.question = "Which image does the quotation above belong to?";
-          newHardImageQuestion['snippet'] = doc.snippet;
-          newHardImageQuestion.questionType = "snippetToImage";
-          newHardImageQuestion.showQuestion = true;
-          newHardImageQuestion.difficultyLevel = 2;
-          $scope.imageQuestions.push(newHardImageQuestion);
-          newHardImageQuestion.answerChoices.push({'value': "http://www.nytimes.com/" + doc.multimedia[0].url, 'isCorrect': true});
-
-          for (var i = 0; i < 4; i++) {
-            var randomIndex = Math.floor((Math.random() * ($scope.articleImagesArray.length -1)) + 0);
-            var imageArray = [];
-            newHardImageQuestion.answerChoices.forEach(function(answerChoice) {
-              imageArray.push(answerChoice.value);
-            });
-            if ( imageArray.indexOf($scope.articleImagesArray[randomIndex]) === -1){
-              newHardImageQuestion.answerChoices.push({'value': $scope.articleImagesArray[randomIndex], 'isCorrect': false});
-            }
-          }
-        }
-
-
-
+          });
 
       });
 
-
-
-
-
-
-
-
-       // outside of all for loops
-      //  $scope.filterQuestions($scope.imageQuestions);
-
-      $scope.quizObject.questions = $scope.imageQuestions;
-
-
-
-
-
+      console.log("---------------------------------flexQestionsArray");
+      console.log($scope.flexQuestionsArray);
+      console.log("--------------------------------fakeImagesArray");
+      console.log($scope.fakeImagesArray);
+      console.log("--------------------------------fakeTitlesArray");
+      console.log($scope.fakeTitlesArray);
+      console.log("--------------------------------fakeSnippetsArray");
+      console.log($scope.fakeSnippetsArray);
     });
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // var resultsObject = results;
+      // var docsArray = resultsObject['response']['docs'];
+      // //console.log(docsArray);
+      //
+      // // create the articleTitlesArray - used for the answers to easy questions.
+      // docsArray.forEach(function(document) {
+      //   if (document.headline.main && document.headline.main !== "") {
+      //     $scope.articleTitlesArray.push(document.headline.main);
+      //   }
+      // });
+      //
+      // // create the articleKeyWordsArray - used for the answers to medium questions
+      // // this could possibly be improved by removing anything thats inside ( ) from the key words string
+      // docsArray.forEach(function(document) {
+      //   if (document.keywords.length > 0) {
+      //     var keywordsString = "";
+      //     document.keywords.forEach(function(keywordObject) {
+      //       if (keywordObject.value) {
+      //         keywordsString += keywordObject.value + "," + " ";
+      //       }
+      //     });
+      //     keywordsString = keywordsString.trim();
+      //     keywordsString = keywordsString.substring(0, keywordsString.length-1);
+      //     $scope.articleKeyWordsArray.push(keywordsString);
+      //   }
+      // });
+      //
+      // // create the articleSnippetsArray used for the questions to hard questions
+      // docsArray.forEach(function(document) {
+      //   if (document.snippet) {
+      //     $scope.articleSnippetsArray.push(document.snippet);
+      //   }
+      // });
+      //
+      // //create the articleImages array used for the answer to hard questions
+      // docsArray.forEach(function(document) {
+      //   if (document.multimedia.length > 0) {
+      //     $scope.articleImagesArray.push("http://www.nytimes.com/" + document.multimedia[0].url);
+      //   }
+      // });
+      //
+      //
+      //
+      // // create the Easy and Medium Questions
+      // docsArray.forEach(function(doc, index) {
+      //
+      //   // easy
+      //   if (doc.multimedia.length > 0 && doc.headline.main) {
+      //
+      //     var newEasyImageQuestion = new ImageQuestion();
+      //     newEasyImageQuestion.question = "The image above most likely goes with which article?";
+      //     newEasyImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
+      //     newEasyImageQuestion.answerChoices.push({'value': doc.headline.main, 'isCorrect': true});
+      //     newEasyImageQuestion.questionType = "imageToTitle";
+      //     newEasyImageQuestion.showQuestion = true;
+      //     newEasyImageQuestion.difficultyLevel = 0;
+      //
+      //     for (var i = 0; i < 4; i++) {
+      //       var randomIndex = Math.floor((Math.random() * ($scope.articleTitlesArray.length -1)) + 0);
+      //       var articleTitlesArray = [];
+      //       newEasyImageQuestion.answerChoices.forEach(function(answerChoice) {
+      //         articleTitlesArray.push(answerChoice.value)
+      //       });
+      //       if (articleTitlesArray.indexOf($scope.articleTitlesArray[randomIndex]) === - 1) {
+      //         newEasyImageQuestion.answerChoices.push({'value': $scope.articleTitlesArray[randomIndex], 'isCorrect': false});
+      //       }
+      //     }
+      //     $scope.imageQuestions.push(newEasyImageQuestion);
+      //   }
+      //
+      //
+      //   // medium
+      //   if (doc.multimedia.length > 0 && doc.keywords.length > 0) {
+      //     var newMediumImageQuestion = new ImageQuestion();
+      //     newMediumImageQuestion.question = "The image above relates most to which set of keywords?";
+      //     newMediumImageQuestion.image = "http://www.nytimes.com/" + doc.multimedia[0].url;
+      //     newMediumImageQuestion.questionType = "image";
+      //     newMediumImageQuestion.showQuestion = true;
+      //     newMediumImageQuestion.difficultyLevel = 1;
+      //     var keywordsString = "";
+      //     doc.keywords.forEach(function(keywordObject) {
+      //       if (keywordObject.value) {
+      //         keywordsString += keywordObject.value + "," + " ";
+      //       }
+      //     });
+      //     keywordsString = keywordsString.trim();
+      //     keywordsString = keywordsString.substring(0, keywordsString.length-1);
+      //     newMediumImageQuestion.answerChoices.push({'value': keywordsString, 'isCorrect': true});
+      //
+      //     for (var i = 0; i < 4; i++) {
+      //       var randomIndex = Math.floor((Math.random() * ($scope.articleKeyWordsArray.length -1)) + 0);
+      //
+      //
+      //       var keywordsArray = [];
+      //       newMediumImageQuestion.answerChoices.forEach(function(answerChoice) {
+      //         keywordsArray.push(answerChoice.value);
+      //       });
+      //       if (keywordsArray.indexOf($scope.articleKeyWordsArray[randomIndex]) === -1) {
+      //         newMediumImageQuestion.answerChoices.push({'value': $scope.articleKeyWordsArray[randomIndex], 'isCorrect': false});
+      //       }
+      //     }
+      //     $scope.imageQuestions.push(newMediumImageQuestion);
+      //
+      //   }
+      //
+      //   //
+      //
+      //   // hard
+      //   if (doc.snippet && doc.multimedia.length > 0) {
+      //     var newHardImageQuestion = new ImageQuestion();
+      //     newHardImageQuestion.question = "Which image does the quotation above belong to?";
+      //     newHardImageQuestion['snippet'] = doc.snippet;
+      //     newHardImageQuestion.questionType = "snippetToImage";
+      //     newHardImageQuestion.showQuestion = true;
+      //     newHardImageQuestion.difficultyLevel = 2;
+      //     $scope.imageQuestions.push(newHardImageQuestion);
+      //     newHardImageQuestion.answerChoices.push({'value': "http://www.nytimes.com/" + doc.multimedia[0].url, 'isCorrect': true});
+      //
+      //     for (var i = 0; i < 4; i++) {
+      //       var randomIndex = Math.floor((Math.random() * ($scope.articleImagesArray.length -1)) + 0);
+      //       var imageArray = [];
+      //       newHardImageQuestion.answerChoices.forEach(function(answerChoice) {
+      //         imageArray.push(answerChoice.value);
+      //       });
+      //       if ( imageArray.indexOf($scope.articleImagesArray[randomIndex]) === -1){
+      //         newHardImageQuestion.answerChoices.push({'value': $scope.articleImagesArray[randomIndex], 'isCorrect': false});
+      //       }
+      //     }
+      //   }
+      //
+      //
+      //
+      //
+      // });
+      //
+
+
+
+
+
+
+
+      // outside of all for loops
+      //  $scope.filterQuestions($scope.imageQuestions);
+  //
+  //     $scope.quizObject.questions = $scope.imageQuestions;
+  //
+  //
+  //
+  //
+  //
+  //   });
+  // };
+  //
+  //
+  //
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -243,7 +536,7 @@ angular.module('quizApp')
     while(keepLookingThoughTheApi) {
       setTimeout($scope.apiCallNYT(pageNumber), 10000);
       pageNumber++;
-      if (pageNumber === 3) keepLookingThoughTheApi = false;
+      if (pageNumber === 1) keepLookingThoughTheApi = false;
     }
   }
   queryApi();
